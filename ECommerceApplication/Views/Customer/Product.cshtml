@@ -1,0 +1,67 @@
+﻿@model IEnumerable<ECommerceApplication.DB.Product>
+
+@{
+    ViewBag.Title = "Customer - Product";
+    Layout = "~/Views/Shared/_CustomerLayout.cshtml";
+}
+
+
+@if (TempData["msg"] != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @TempData["msg"]
+    </div>
+}
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Quantity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Admin.username)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Category.name)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Admin.username)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category.name)
+            </td>
+            <td>
+                @*@Html.ActionLink("Add to Cart", "Edit", new { id=item.id }) |
+                    @Html.ActionLink("Details", "Details", new { id=item.id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id=item.id })*@
+                <form action="/Customer/Cart" method="post">
+                    <input type="hidden" name="productId" value="@item.id" />
+                    <input type="number" name="quantity" value="1" />
+                    <input type="submit" value="Add to Cart" class="btn btn-dark" />
+                </form>
+            </td>
+        </tr>
+    }
+
+</table>

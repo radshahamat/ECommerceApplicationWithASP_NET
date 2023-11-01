@@ -1,0 +1,38 @@
+﻿@model IEnumerable<ECommerceApplication.DB.Order>
+
+@{
+    ViewBag.Title = "Customer - Order";
+    Layout = "~/Views/Shared/_CustomerLayout.cshtml";
+}
+
+<h2>Order</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.orderDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Customer.username)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.orderDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Customer.username)
+        </td>
+        <td>
+            @Html.ActionLink("Details", "OrderDetails", new { id=item.id })
+        </td>
+    </tr>
+}
+
+</table>
